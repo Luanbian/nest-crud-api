@@ -1,12 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from '../../main/services/app.service';
+import { Controller, Post, Body } from '@nestjs/common';
+import { Customer } from '../../main/services/app.service';
+import { Icustomer } from 'src/main/entity/customer';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: Customer) {}
 
-  @Get()
-  public async handle(): Promise<string> {
-    return await this.appService.getHello();
+  @Post('/create')
+  public async handle(@Body() customer: Icustomer): Promise<string> {
+    try {
+      await this.appService.create(customer);
+      return 'criado com sucesso'
+    } catch (err) {
+      throw new Error(err)
+    }
   }
 }

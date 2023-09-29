@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { DbCustomer } from 'src/infra/repository/db.customer';
+import { Icustomer } from '../entity/customer';
 
 @Injectable()
-export class AppService {
-  public async getHello(): Promise<string> {
-    return 'Hello World!';
+export class Customer {
+  constructor (private readonly db: DbCustomer) {}
+
+  public async create(customer: Icustomer): Promise<void> {
+    await this.db.create(customer)
   }
 }
