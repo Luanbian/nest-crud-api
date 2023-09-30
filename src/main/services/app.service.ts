@@ -17,4 +17,9 @@ export class CustomerService {
     const customers = await this.db.read()
     return customers
   }
+
+  public async update(id:string, createCustomer: CreateCustomerDto): Promise<void> {
+    const customer = Customer.create(createCustomer)
+    await this.db.update(id, customer)
+  }
 }

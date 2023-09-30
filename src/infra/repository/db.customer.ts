@@ -15,4 +15,13 @@ export class DbCustomer {
     const consult = await this.prisma.customer.findMany()
     return consult
   }
+
+  public async update (id: string, customer: Customer): Promise<void> {
+    await this.prisma.customer.update({
+      data: customer, 
+      where: {
+        id: Number(id)
+      }
+    })
+  }
 }
