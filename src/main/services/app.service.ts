@@ -8,10 +8,7 @@ export class CustomerService {
   constructor (private readonly db: DbCustomer) {}
 
   public async create(createCustomer: CreateCustomerDto): Promise<void> {
-    const customer = new Customer()
-    customer.name = createCustomer.name
-    customer.email = createCustomer.email
-    customer.phone = createCustomer.phone
+    const customer = Customer.create(createCustomer)
     await this.db.create(customer)
   }
 }
