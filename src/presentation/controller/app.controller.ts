@@ -1,13 +1,13 @@
-import { Controller, Post, Body } from '@nestjs/common';
-import { Customer } from '../../main/services/app.service';
-import { Icustomer } from 'src/main/entity/customer';
+import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
+import { CustomerService } from '../../main/services/app.service';
+import { CreateCustomerDto } from 'src/main/core/dtos/customer.dto';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: Customer) {}
+  constructor(private readonly appService: CustomerService) {}
 
   @Post('/create')
-  public async handle(@Body() customer: Icustomer): Promise<string> {
+  public async handle(@Body(new ValidationPipe()) customer: CreateCustomerDto ): Promise<string> {
     try {
       await this.appService.create(customer);
       return 'criado com sucesso'
