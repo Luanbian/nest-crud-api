@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma';
 import { Customer } from 'src/main/entity/customer';
+import { Customer as customer_table } from '@prisma/client';
 
 @Injectable()
 export class DbCustomer {
   constructor (private readonly prisma: PrismaService) {}
 
-  public async create (customer: Customer) {
+  public async create (customer: Customer): Promise<void> {
     await this.prisma.customer.create({ data: customer })
+  }
+
+  public async read (): Promise<customer_table[]> {
+    const consult = await this.prisma.customer.findMany()
+    return consult
   }
 }
