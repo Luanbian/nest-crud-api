@@ -1,4 +1,4 @@
-import { Controller, Post, Query, Body, ValidationPipe, Get, Put } from '@nestjs/common';
+import { Controller, Post, Query, Body, ValidationPipe, Get, Put, Delete } from '@nestjs/common';
 import { CustomerService } from '../../main/services/app.service';
 import { CreateCustomerDto } from 'src/main/core/dtos/customer.dto';
 import { Customer as customer_table } from '@prisma/client';
@@ -32,6 +32,16 @@ export class AppController {
     try {
       await this.appService.update(query.id, customer)
       return 'atualizado com sucesso'
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  @Delete('/delete')
+  public async handleDelete(@Query() query: { id:string }): Promise<string> {
+    try {
+      await this.appService.delete(query.id)
+      return 'deletado com sucesso'
     } catch (error) {
       throw new Error(error)
     }

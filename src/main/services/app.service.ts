@@ -22,4 +22,8 @@ export class CustomerService {
     const customer = Customer.create(createCustomer)
     await this.db.update(id, customer)
   }
+
+  public async delete(id: string): Promise<void> {
+    await this.db.delete(id)
+  }
 }

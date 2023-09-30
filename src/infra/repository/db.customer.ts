@@ -24,4 +24,10 @@ export class DbCustomer {
       }
     })
   }
+
+  public async delete (id: string): Promise<void> {
+    await this.prisma.customer.delete({
+      where: { id: Number(id) }
+    })
+  }
 }
